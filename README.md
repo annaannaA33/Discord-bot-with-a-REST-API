@@ -14,6 +14,7 @@ Setup Instructions
 Fill in the required values:
 
 FALLBACK_GIF_URL: fallback GIF
+(Since this project is educational, I’ve included this default fallback GIF URL for simplicity and ease of use.)
 
 Giphy API Key:
 Register and get your API key from [Giphy Developers](https://developers.giphy.com/).
@@ -46,7 +47,7 @@ To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Dev
 6. Run the following command to check the records in the database:
 
 sqlite3 ./database.sqlite
-SELECT * FROM messages;
+SELECT \* FROM messages;
 
 7. Test the application:
 
@@ -55,7 +56,7 @@ POST http://localhost:3000/messages
 With the following JSON data:
 
 {
-  "username": "Anya",
-  "sprintCode": "1"
+"username": "Anya",
+"sprintCode": "1"
 }
 A congratulatory message along with a GIF should appear in your Discord channel.
