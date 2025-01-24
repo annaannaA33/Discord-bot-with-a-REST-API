@@ -3,7 +3,7 @@
 export interface Message {
     id: number;
     username: string;
-    sprintCode: string;
+    sprintCode: number;
     message: string;
     gifUrl: string;
     createdAt: string;
@@ -16,9 +16,8 @@ export interface Template {
 
 export interface Sprint {
     id: number;
-    code: string;
+    code: number;
     title: string;
-    createdAt: string;
 }
 
 export interface Database {

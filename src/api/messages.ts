@@ -4,6 +4,7 @@ import { getRandomTemplate } from "../services/messageService";
 import { db } from "../models/db";
 import { sendMessageToDiscord } from "../utils/discord";
 import { config } from "dotenv";
+import { getSprintTitle } from "../services/sprintService";
 
 config();
 
@@ -15,10 +16,10 @@ messagesRouter.post("/", async (req, res) => {
     const { username, sprintCode } = req.body;
 
     // Проверка на обязательные поля
-    if (!username || !sprintCode) {
+    if (!username || isNaN(Number(sprintCode))) {
         return res
             .status(400)
-            .json({ error: "Username and sprintCode are required" });
+            .json({ error: "Username and valid sprintCode are required" });
     }
 
     try {
@@ -27,12 +28,17 @@ messagesRouter.post("/", async (req, res) => {
 
         // Получаем случайный шаблон поздравления
         const template = await getRandomTemplate();
-
+        //const sprintCode = Number(req.body.sprintCode);
+        const sprintTitle = await getSprintTitle(Number(sprintCode));
+        if (!sprintTitle) {
+            return res.status(404).json({ error: "Sprint not found" });
+        }
         // Формируем сообщение
         const message =
             template
                 .replace("{username}", username)
-                .replace("{sprintCode}", sprintCode) + `\n${gifUrl}`;
+                .replace("{sprintCode}", `Sprint ${sprintCode} ${sprintTitle}`) +
+            `\n${gifUrl}`;
 
         // Отправляем сообщение в Discord
         if (!discordChannelId) {

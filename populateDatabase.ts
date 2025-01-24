@@ -1,19 +1,8 @@
-/*import Database from "better-sqlite3";
-import { Kysely, SqliteDialect } from "kysely";
+import { db } from "./src/models/db";
 
-// Создаем подключение к базе данных с использованием better-sqlite3
-export const db = new Kysely({
-    dialect: new SqliteDialect({
-        database: new Database(process.env.DATABASE_URL || "./database.sqlite"), // Используем better-sqlite3
-    }),
-});
-*/
-import { db } from "./src/models/db"; // Подключаем единое подключение к базе
 
-// Функция для заполнения базы данных
 async function populateDatabase() {
     try {
-        // Заполняем таблицу templates с несколькими вариантами текста
         await db
             .insertInto("templates")
             .values([
@@ -32,21 +21,29 @@ async function populateDatabase() {
             ])
             .execute();
 
-        // Заполняем таблицу sprints с несколькими спринтами
         await db
             .insertInto("sprints")
             .values([
-                { code: "Sprint-1", title: "Node.js and Relational Databases" },
                 {
-                    code: "Sprint-2",
+                    code: 3.1,
+                    title: "Node.js and Relational Databases",
+                },
+                {
+                    code: 3.2,
                     title: "REST APIs & Test Driven Development",
                 },
-                { code: "Sprint-3", title: "Advanced JavaScript & TypeScript" },
                 {
-                    code: "Sprint-4",
-                    title: "Building Scalable Apps with Node.js",
+                    code: 1.1,
+                    title: "First Steps Into Programming with Python",
                 },
-                { code: "Sprint-5", title: "GraphQL and Data Management" },
+                {
+                    code: 1.2,
+                    title: "Intermediate Programming with Python",
+                },
+                {
+                    code: 1.4,
+                    title: "Computer Science Fundamentals",
+                },
             ])
             .execute();
 
@@ -56,5 +53,4 @@ async function populateDatabase() {
     }
 }
 
-// Вызываем функцию для заполнения данных
 populateDatabase();
