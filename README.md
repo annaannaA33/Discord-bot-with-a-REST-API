@@ -13,8 +13,11 @@ Setup Instructions
 
 Fill in the required values:
 
+FALLBACK_GIF_URL: fallback GIF
+
 Giphy API Key:
 Register and get your API key from [Giphy Developers](https://developers.giphy.com/).
+Instructions: https://developers.giphy.com/docs/.
 
 Database URL:
 Set the path for your SQLite database, for example:
@@ -22,6 +25,7 @@ DATABASE_URL=./database.sqlite
 
 Discord Bot Token:
 Create a bot and get the token from [Discord Developer Portal](https://discord.com/developers/applications).
+instructions: https://discord.com/developers/docs/intro.
 
 Discord Channel ID:
 To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Developer Mode. Then right-click on the desired channel and select "Copy ID".
@@ -39,10 +43,19 @@ To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Dev
 5. To populate the database with initial data, run:
    tsx populateDatabase.ts
 
-5.1. Check the Database
-To verify the data is in the database, use the following command with SQLite3:
+6. Run the following command to check the records in the database:
 
 sqlite3 ./database.sqlite
-Then, run:
+SELECT * FROM messages;
 
-SELECT \* FROM messages;
+7. Test the application:
+
+Once everything is set up, the bot will be ready to send congratulatory messages. Use a tool like Postman to send a POST request to:
+POST http://localhost:3000/messages
+With the following JSON data:
+
+{
+  "username": "Anya",
+  "sprintCode": "1"
+}
+A congratulatory message along with a GIF should appear in your Discord channel.

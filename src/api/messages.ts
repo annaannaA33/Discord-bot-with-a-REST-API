@@ -8,7 +8,7 @@ import { config } from "dotenv";
 config();
 
 const discordChannelId = process.env.DISCORD_CHANNEL_ID;
-
+const FALLBACK_GIF_URL = process.env.FALLBACK_GIF_URL;
 export const messagesRouter = Router();
 
 messagesRouter.post("/", async (req, res) => {
