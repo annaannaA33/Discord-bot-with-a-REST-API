@@ -1,8 +1,9 @@
 import { db } from "../models/db";
 import { sql } from "kysely";
+import { Template } from "../types/database";
 
 export const getRandomTemplate = async (): Promise<string> => {
-    const templates = await db
+    const templates: Template[] = await db
         .selectFrom("templates")
         .selectAll()
         .orderBy(sql`RANDOM()`)
