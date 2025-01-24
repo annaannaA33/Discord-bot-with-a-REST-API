@@ -1,4 +1,4 @@
-import { db } from "../models/db";
+import { db } from "../db/db";
 
 export async function getSprintTitle(
     sprintCode: number

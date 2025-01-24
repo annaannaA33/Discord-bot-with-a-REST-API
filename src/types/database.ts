@@ -1,12 +1,12 @@
 // src/types/database.ts
 
 export interface Message {
-    id: number;
+    id?: number;
     username: string;
     sprintCode: number;
     message: string;
     gifUrl: string;
-    createdAt: Date;
+    createdAt?: Date;
 }
 
 export interface Template {

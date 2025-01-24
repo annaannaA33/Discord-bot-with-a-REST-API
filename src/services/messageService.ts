@@ -1,4 +1,4 @@
-import { db } from "../models/db";
+import { db } from "../db/db";
 import { sql } from "kysely";
 import { Template } from "../types/database";
 
