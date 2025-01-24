@@ -1,6 +1,7 @@
 import { db } from "./src/models/db";
 
 
+
 async function populateDatabase() {
     try {
         await db

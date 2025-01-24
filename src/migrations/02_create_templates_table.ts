@@ -1,6 +1,7 @@
-import { Kysely, MigrationContext } from "kysely";
+import { Kysely } from "kysely";
+import { Database } from "../types/database";
 
-export async function up(db: Kysely<any>) {
+export async function up(db: Kysely<Database>) {
     await db.schema
         .createTable("templates")
         .addColumn("id", "integer", (col) => col.primaryKey().autoIncrement())
@@ -8,6 +9,6 @@ export async function up(db: Kysely<any>) {
         .execute();
 }
 
-export async function down(db: Kysely<any>) {
+export async function down(db: Kysely<Database>) {
     await db.schema.dropTable("templates").execute();
 }

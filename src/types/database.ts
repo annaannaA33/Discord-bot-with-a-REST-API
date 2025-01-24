@@ -6,7 +6,7 @@ export interface Message {
     sprintCode: number;
     message: string;
     gifUrl: string;
-    createdAt: string;
+    createdAt: Date;
 }
 
 export interface Template {

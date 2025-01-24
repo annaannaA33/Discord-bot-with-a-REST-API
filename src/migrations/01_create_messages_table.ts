@@ -1,4 +1,4 @@
-import { Kysely } from "kysely";
+import { Kysely, sql  } from "kysely";
 import { Database } from "../types/database";
 
 export async function up(db: Kysely<Database>) {
@@ -10,7 +10,7 @@ export async function up(db: Kysely<Database>) {
         .addColumn("message", "varchar")
         .addColumn("gifUrl", "varchar")
         .addColumn("createdAt", "datetime", (col) =>
-            col.defaultTo("CURRENT_TIMESTAMP")
+            col.defaultTo(sql`CURRENT_TIMESTAMP`)
         )
         .execute();
 
