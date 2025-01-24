@@ -1,4 +1,4 @@
-import { db } from "./src/models/db";
+import { db } from "./src/db/db";
 
 
 

@@ -10,12 +10,12 @@ export interface Message {
 }
 
 export interface Template {
-    id: number;
+    id?: number;
     text: string;
 }
 
 export interface Sprint {
-    id: number;
+    id?: number;
     code: number;
     title: string;
 }
