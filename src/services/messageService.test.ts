@@ -4,10 +4,8 @@ import { Kysely } from "kysely";
 import { Database } from "../types/database";
 import { Template } from "../types/database";
 
-
 const mockDb = {
     selectFrom: vi.fn(),
-    
 };
 
 describe("getRandomTemplate", () => {
@@ -32,7 +30,8 @@ describe("getRandomTemplate", () => {
     });
 
     it("should throw an error if no templates are found", async () => {
-        mockDb.selectFrom.mockReturnValue({
+        // Мокаем выполнение цепочки методов
+        const selectFromMock = vi.fn().mockReturnValue({
             selectAll: vi.fn().mockReturnValue({
                 orderBy: vi.fn().mockReturnValue({
                     limit: vi.fn().mockReturnValue({
@@ -42,12 +41,15 @@ describe("getRandomTemplate", () => {
             }),
         });
 
+        mockDb.selectFrom = selectFromMock;
+
         await expect(
             getRandomTemplate(mockDb as unknown as Kysely<Database>)
         ).rejects.toThrow("No templates found");
-        expect(mockDb.selectFrom).toHaveBeenCalledOnce();
-    });
 
+        // Проверяем, что selectFrom был вызван только один раз
+        expect(selectFromMock).toHaveBeenCalledTimes(1);
+    });
     it("should call the correct db methods", async () => {
         const mockTemplates: Template[] = [{ text: "Template 2" }];
         mockDb.selectFrom.mockReturnValue({
