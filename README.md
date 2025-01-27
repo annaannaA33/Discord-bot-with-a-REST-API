@@ -60,3 +60,10 @@ With the following JSON data:
 "sprintCode": "1"
 }
 A congratulatory message along with a GIF should appear in your Discord channel.
+
+
+Tests:
+
+I decided to place the tests next to the files
+to run use this:
+npm run test
