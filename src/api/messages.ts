@@ -45,5 +45,35 @@ export function createMessagesRouter({
             });
         }
     });
+
+    router.get("/", async (req, res) => {
+        const { username } = req.query;
+
+        try {
+            let query = db
+                .selectFrom("messages")
+                .select([
+                    "id",
+                    "username",
+                    "sprintCode",
+                    "message",
+                    "gifUrl",
+                    "createdAt",
+                ]);
+
+            // Применяем фильтр, если указан username
+            if (username) {
+                query = query.where("username", "=", username as string);
+            }
+
+            const messages = await query.execute();
+
+            res.status(200).json(messages);
+        } catch (error) {
+            console.error("Error fetching messages:", error);
+            res.status(500).json({ error: "Failed to fetch messages" });
+        }
+    });
+
     return router;
 }
