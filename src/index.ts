@@ -1,6 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 import { createMessagesRouter } from "./api/messages";
+import { createTemplatesRouter } from "./modules/templates";
 import { getRandomGif } from "./utils/giphy";
 import { getRandomTemplate } from "./services/messageService";
 import { sendMessageToDiscord } from "./utils/discord";
@@ -26,7 +27,7 @@ app.use(
         db,
     })
 );
-
+app.use("/templates", createTemplatesRouter(db));
 
 
 const PORT = 3000;

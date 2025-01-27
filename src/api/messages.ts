@@ -61,12 +61,10 @@ export function createMessagesRouter({
                     "createdAt",
                 ]);
 
-            
             if (username) {
                 query = query.where("username", "=", username as string);
             }
 
-            
             if (sprint) {
                 query = query.where("sprintCode", "=", sprint as string);
             }
