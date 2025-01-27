@@ -6,14 +6,14 @@ export interface MessageRouterDependencies {
     sendMessageToDiscord: (channelId: string, message: string) => Promise<void>;
     saveMessage: (data: {
         username: string;
-        sprintCode: number;
+        sprintCode: string;
         message: string;
         gifUrl: string;
     }) => Promise<void>;
     validateMessageRequest: (
         db: Kysely<Database>,
         username: string,
-        sprintCode: number
+        sprintCode: string
     ) => Promise<string>;
     discordChannelId: string | undefined;
     db: Kysely<Database>;

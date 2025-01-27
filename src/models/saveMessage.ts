@@ -2,7 +2,7 @@ import { db } from "../db/db";
 
 interface SaveMessageParams {
     username: string;
-    sprintCode: number;
+    sprintCode: string;
     message: string;
     gifUrl: string;
 }

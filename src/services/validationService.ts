@@ -5,9 +5,9 @@ import { Database } from "../types/database";
 export async function validateMessageRequest(
     db: Kysely<Database>,
     username: string,
-    sprintCode: number
+    sprintCode: string
 ): Promise<string> {
-    if (!username || isNaN(sprintCode)) {
+    if (!username || !sprintCode.trim()) {
         throw new Error("Username and valid sprintCode are required");
     }
 

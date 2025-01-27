@@ -3,13 +3,11 @@ import { getSprintTitle } from "./sprintService";
 import { Kysely } from "kysely";
 import { Database } from "../types/database";
 
-
 vi.mock("kysely", () => ({
     Kysely: vi.fn().mockImplementation(() => ({
         selectFrom: vi.fn(),
     })),
 }));
-
 
 const mockDb = {
     selectFrom: vi.fn(),
@@ -32,10 +30,9 @@ describe("getSprintTitle", () => {
             }),
         });
 
-      
         const result = await getSprintTitle(
             mockDb as unknown as Kysely<Database>,
-            1
+            "WD-1.1"
         );
         expect(result).toBe("Sprint 1");
         expect(mockDb.selectFrom).toHaveBeenCalledOnce();
@@ -54,7 +51,7 @@ describe("getSprintTitle", () => {
 
         const result = await getSprintTitle(
             mockDb as unknown as Kysely<Database>,
-            999
+            "WD-999"
         );
         expect(result).toBeNull();
         expect(mockDb.selectFrom).toHaveBeenCalledOnce();
@@ -74,7 +71,7 @@ describe("getSprintTitle", () => {
         });
 
         await expect(
-            getSprintTitle(mockDb as unknown as Kysely<Database>, 1)
+            getSprintTitle(mockDb as unknown as Kysely<Database>, "WD-1.1")
         ).rejects.toThrow("Database error");
         expect(mockDb.selectFrom).toHaveBeenCalledOnce();
         expect(mockExecuteTakeFirst).toHaveBeenCalledOnce();

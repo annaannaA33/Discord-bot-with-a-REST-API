@@ -26,23 +26,23 @@ async function populateDatabase() {
             .insertInto("sprints")
             .values([
                 {
-                    code: 3.1,
+                    code: "WD-3.1",
                     title: "Node.js and Relational Databases",
                 },
                 {
-                    code: 3.2,
+                    code: "WD-3.2",
                     title: "REST APIs & Test Driven Development",
                 },
                 {
-                    code: 1.1,
+                    code: "WD-1.1",
                     title: "First Steps Into Programming with Python",
                 },
                 {
-                    code: 1.2,
+                    code: "WD-1.2",
                     title: "Intermediate Programming with Python",
                 },
                 {
-                    code: 1.4,
+                    code: "WD-1.4",
                     title: "Computer Science Fundamentals",
                 },
             ])

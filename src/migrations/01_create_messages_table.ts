@@ -6,7 +6,7 @@ export async function up(db: Kysely<Database>) {
         .createTable("messages")
         .addColumn("id", "integer", (col) => col.primaryKey().autoIncrement())
         .addColumn("username", "varchar")
-        .addColumn("sprintCode", "integer")
+        .addColumn("sprintCode", "varchar")
         .addColumn("message", "varchar")
         .addColumn("gifUrl", "varchar")
         .addColumn("createdAt", "datetime", (col) =>

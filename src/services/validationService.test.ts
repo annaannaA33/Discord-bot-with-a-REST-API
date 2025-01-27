@@ -4,11 +4,9 @@ import { getSprintTitle } from "./sprintService";
 import { Kysely } from "kysely";
 import { Database } from "../types/database";
 
-
 vi.mock("./sprintService", () => ({
     getSprintTitle: vi.fn(),
 }));
-
 
 const mockDb = {
     selectFrom: vi.fn(),
@@ -19,16 +17,20 @@ const mockedGetSprintTitle = getSprintTitle as ReturnType<typeof vi.fn>;
 describe("validateMessageRequest", () => {
     it("should throw an error if username is missing", async () => {
         await expect(
-            validateMessageRequest(mockDb as unknown as Kysely<Database>, "", 1)
+            validateMessageRequest(
+                mockDb as unknown as Kysely<Database>,
+                "",
+                "WD-1.1"
+            )
         ).rejects.toThrow("Username and valid sprintCode are required");
     });
 
-    it("should throw an error if sprintCode is NaN", async () => {
+    it("should throw an error if sprintCode is missing or empty", async () => {
         await expect(
             validateMessageRequest(
                 mockDb as unknown as Kysely<Database>,
                 "testUser",
-                NaN
+                ""
             )
         ).rejects.toThrow("Username and valid sprintCode are required");
     });
@@ -40,7 +42,7 @@ describe("validateMessageRequest", () => {
             validateMessageRequest(
                 mockDb as unknown as Kysely<Database>,
                 "testUser",
-                1
+                "WD-1.1"
             )
         ).rejects.toThrow("Sprint not found");
     });
@@ -51,11 +53,11 @@ describe("validateMessageRequest", () => {
         const result = await validateMessageRequest(
             mockDb as unknown as Kysely<Database>,
             "testUser",
-            1
+            "WD-1.1"
         );
 
         expect(result).toBe("Sprint 1");
-        expect(mockedGetSprintTitle).toHaveBeenCalledWith(mockDb, 1);
+        expect(mockedGetSprintTitle).toHaveBeenCalledWith(mockDb, "WD-1.1");
     });
 
     it("should call getSprintTitle with the correct sprintCode", async () => {
@@ -64,9 +66,9 @@ describe("validateMessageRequest", () => {
         await validateMessageRequest(
             mockDb as unknown as Kysely<Database>,
             "anotherUser",
-            2
+            "WD-1.2"
         );
 
-        expect(mockedGetSprintTitle).toHaveBeenCalledWith(mockDb, 2);
+        expect(mockedGetSprintTitle).toHaveBeenCalledWith(mockDb, "WD-1.2");
     });
 });

@@ -47,7 +47,7 @@ export function createMessagesRouter({
     });
 
     router.get("/", async (req, res) => {
-        const { username } = req.query;
+        const { username, sprint } = req.query;
 
         try {
             let query = db
@@ -61,9 +61,14 @@ export function createMessagesRouter({
                     "createdAt",
                 ]);
 
-            // Применяем фильтр, если указан username
+            
             if (username) {
                 query = query.where("username", "=", username as string);
+            }
+
+            
+            if (sprint) {
+                query = query.where("sprintCode", "=", sprint as string);
             }
 
             const messages = await query.execute();

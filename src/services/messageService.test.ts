@@ -30,7 +30,6 @@ describe("getRandomTemplate", () => {
     });
 
     it("should throw an error if no templates are found", async () => {
-        // Мокаем выполнение цепочки методов
         const selectFromMock = vi.fn().mockReturnValue({
             selectAll: vi.fn().mockReturnValue({
                 orderBy: vi.fn().mockReturnValue({

@@ -5,7 +5,7 @@ export async function up(db: Kysely<Database>) {
     await db.schema
         .createTable("sprints")
         .addColumn("id", "integer", (col) => col.primaryKey().autoIncrement())
-        .addColumn("code", "integer")
+        .addColumn("code", "varchar")
         .addColumn("title", "varchar")
         .execute();
 }
