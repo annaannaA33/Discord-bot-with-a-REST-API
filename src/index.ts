@@ -1,14 +1,33 @@
 import express from "express";
 import { config } from "dotenv";
-import { messagesRouter } from "./api/messages";
-
-config(); // Подключаем .env
+import { createMessagesRouter } from "./api/messages";
+import { getRandomGif } from "./utils/giphy";
+import { getRandomTemplate } from "./services/messageService";
+import { sendMessageToDiscord } from "./utils/discord";
+import { saveMessage } from "./models/saveMessage";
+import { validateMessageRequest } from "./services/validationService";
+import { db } from "./db/db";
+config();
 
 const app = express();
 app.use(express.json());
 
-// Роуты
-app.use("/messages", messagesRouter);
+const discordChannelId = process.env.DISCORD_CHANNEL_ID;
+
+app.use(
+    "/messages",
+    createMessagesRouter({
+        getRandomGif,
+        getRandomTemplate,
+        sendMessageToDiscord,
+        saveMessage,
+        validateMessageRequest,
+        discordChannelId,
+        db,
+    })
+);
+
+
 
 const PORT = 3000;
 app.listen(PORT, () => {

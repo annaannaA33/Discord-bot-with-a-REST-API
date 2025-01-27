@@ -5,6 +5,7 @@
     "scripts": {
         "lint": "eslint 'src/**/*.{js,ts}' --fix",
         "dev": "tsx watch src/index.ts",
+        "build": "tsc",
         "start": "tsx src/index.ts",
         "test": "vitest run",
         "test:watch": "vitest watch",

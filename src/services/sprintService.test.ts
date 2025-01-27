@@ -1,20 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { db } from "../db/db";
 import { getSprintTitle } from "./sprintService";
+import { Kysely } from "kysely";
+import { Database } from "../types/database";
 
-// Мокаем базу данных
-vi.mock("../db/db", () => ({
-    db: {
+
+vi.mock("kysely", () => ({
+    Kysely: vi.fn().mockImplementation(() => ({
         selectFrom: vi.fn(),
-    },
+    })),
 }));
 
-const mockDb = db as unknown as {
-    selectFrom: vi.Mock;
+
+const mockDb = {
+    selectFrom: vi.fn(),
 };
 
 describe("getSprintTitle", () => {
-    // Сбрасываем все моки перед каждым тестом
     beforeEach(() => {
         vi.clearAllMocks();
     });
@@ -31,7 +32,11 @@ describe("getSprintTitle", () => {
             }),
         });
 
-        const result = await getSprintTitle(1);
+      
+        const result = await getSprintTitle(
+            mockDb as unknown as Kysely<Database>,
+            1
+        );
         expect(result).toBe("Sprint 1");
         expect(mockDb.selectFrom).toHaveBeenCalledOnce();
         expect(mockExecuteTakeFirst).toHaveBeenCalledOnce();
@@ -47,7 +52,10 @@ describe("getSprintTitle", () => {
             }),
         });
 
-        const result = await getSprintTitle(999);
+        const result = await getSprintTitle(
+            mockDb as unknown as Kysely<Database>,
+            999
+        );
         expect(result).toBeNull();
         expect(mockDb.selectFrom).toHaveBeenCalledOnce();
         expect(mockExecuteTakeFirst).toHaveBeenCalledOnce();
@@ -65,7 +73,9 @@ describe("getSprintTitle", () => {
             }),
         });
 
-        await expect(getSprintTitle(1)).rejects.toThrow("Database error");
+        await expect(
+            getSprintTitle(mockDb as unknown as Kysely<Database>, 1)
+        ).rejects.toThrow("Database error");
         expect(mockDb.selectFrom).toHaveBeenCalledOnce();
         expect(mockExecuteTakeFirst).toHaveBeenCalledOnce();
     });

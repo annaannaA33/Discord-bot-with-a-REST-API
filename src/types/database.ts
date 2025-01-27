@@ -1,4 +1,4 @@
-// src/types/database.ts
+
 
 export interface Message {
     id?: number;
