@@ -1,14 +1,14 @@
 import { config } from "dotenv";
 import express from "express";
-import { createMessagesRouter } from "./api/messages";
-import { createTemplatesRouter } from "./modules/templates";
+import { createMessagesRouter } from "./modules/messages/controller";
+import { createTemplatesRouter } from "./modules/templates/controller";
+import { createSprintsRouter } from "./modules/sprints/controller";
 import { getRandomGif } from "./utils/giphy";
-import { getRandomTemplate } from "./services/messageService";
+import { getRandomTemplate } from "./modules/messages/services/messageService";
 import { sendMessageToDiscord } from "./utils/discord";
-import { saveMessage } from "./models/saveMessage";
-import { validateMessageRequest } from "./services/validationService";
+import { saveMessage } from "./modules/messages/services/saveMessage";
+import { validateMessageRequest } from "./modules/messages/services/validationService";
 import { db } from "./db/db";
-import { createSprintsRouter } from "./modules/sprints/controller"
 config();
 
 const discordChannelId = process.env.DISCORD_CHANNEL_ID;

@@ -15,7 +15,6 @@ export interface Template {
 }
 
 export interface Sprint {
-    id?: number;
     code: string;
     title: string;
 }

@@ -1,4 +1,4 @@
-import { db } from "../db/db";
+import { db } from "../../../db/db";
 
 interface SaveMessageParams {
     username: string;

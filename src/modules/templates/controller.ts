@@ -1,11 +1,14 @@
 import { Router } from "express";
 import { Kysely } from "kysely";
-import { Database } from "../types/database";
 
-export function createTemplatesRouter(db: Kysely<Database>): Router {
+import { TemplatesRouterDependencies } from "../../types/createTemplatesRouter";
+
+export function createTemplatesRouter({
+    db,
+}: TemplatesRouterDependencies): Router {
     const router = Router();
 
-    // Create a new template
+
     router.post("/", async (req, res) => {
         const { text } = req.body;
 
@@ -69,7 +72,6 @@ export function createTemplatesRouter(db: Kysely<Database>): Router {
         }
     });
 
-    // Delete a template
     router.delete("/:id", async (req, res) => {
         const { id } = req.params;
 

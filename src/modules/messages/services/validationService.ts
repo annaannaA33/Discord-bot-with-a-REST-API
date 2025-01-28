@@ -1,6 +1,6 @@
 import { getSprintTitle } from "./sprintService";
 import { Kysely } from "kysely";
-import { Database } from "../types/database";
+import { Database } from "../../../types/database";
 
 export async function validateMessageRequest(
     db: Kysely<Database>,

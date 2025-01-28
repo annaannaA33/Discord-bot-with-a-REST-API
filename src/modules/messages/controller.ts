@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MessageRouterDependencies } from "../types/messageRouter";
+import { MessageRouterDependencies } from "../../types/messageRouter";
 export function createMessagesRouter({
     getRandomGif,
     getRandomTemplate,

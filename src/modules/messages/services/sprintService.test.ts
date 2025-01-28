@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { getSprintTitle } from "./sprintService";
 import { Kysely } from "kysely";
-import { Database } from "../types/database";
+import { Database } from "../../../types/database";
 
 vi.mock("kysely", () => ({
     Kysely: vi.fn().mockImplementation(() => ({

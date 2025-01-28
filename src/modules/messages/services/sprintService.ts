@@ -1,8 +1,8 @@
 import { Kysely } from "kysely";
-import { Database } from "../types/database";
+import { Database } from "../../../types/database";
 
 export async function getSprintTitle(
-    db: Kysely<Database>, // db передается через DI
+    db: Kysely<Database>,
     sprintCode: string
 ): Promise<string | null> {
     if (!db) {

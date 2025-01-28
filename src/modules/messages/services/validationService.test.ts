@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { validateMessageRequest } from "./validationService";
 import { getSprintTitle } from "./sprintService";
 import { Kysely } from "kysely";
-import { Database } from "../types/database";
+import { Database } from "../../../types/database";
 
 vi.mock("./sprintService", () => ({
     getSprintTitle: vi.fn(),

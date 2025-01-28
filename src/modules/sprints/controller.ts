@@ -3,6 +3,7 @@ import { Kysely } from "kysely";
 import { Database, Sprint } from "../../types/database";
 import { z } from "zod";
 
+
 const createSprintSchema = z.object({
     code: z.string().min(1, "Code is required"),
     title: z.string().min(1, "Title is required"),
@@ -22,7 +23,7 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
         }
 
         const { code, title } = validation.data;
-
+        //code указан как уникальеное значение, и праймари код и база данных должна выдать ошибку, если будет попцтка создать спринт с code  который уже есть. и тогда уже эту ошибку надо передать пользователю
         try {
             await db.insertInto("sprints").values({ code, title }).execute();
             res.status(201).json({ message: "Sprint created successfully" });
@@ -45,15 +46,13 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
         }
     });
 
-    router.patch("/:id", async (req, res) => {
-        const id = parseInt(req.params.id, 10);
-        if (isNaN(id)) {
-            return res.status(400).json({ error: "Invalid sprint ID" });
-        }
-
+    router.patch("/:code", async (req, res) => {
+        const code = req.params.code;
+//если база данных дает ошибку, то передаем эту ошибку
         const validation = updateSprintSchema.safeParse(req.body);
         if (!validation.success) {
-            return res.status(400).json({ error: validation.error.errors });
+            res.status(400).json({ error: validation.error.errors });
+            return;
         }
 
         const { title } = validation.data;
@@ -62,10 +61,10 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
             const result = await db
                 .updateTable("sprints")
                 .set({ title })
-                .where("id", "=", id)
+                .where("code", "=", code)
                 .execute();
 
-            if (result.numUpdatedRows === 0) {
+            if (result.length === 0) {
                 return res.status(404).json({ error: "Sprint not found" });
             }
 
@@ -76,20 +75,15 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
         }
     });
 
-    // DELETE /sprints/:id - Удаление спринта
-    router.delete("/:id", async (req, res) => {
-        const id = parseInt(req.params.id, 10);
-        if (isNaN(id)) {
-            return res.status(400).json({ error: "Invalid sprint ID" });
-        }
-
+    router.delete("/:code", async (req, res) => {
+        const { code } = req.params;
         try {
             const result = await db
                 .deleteFrom("sprints")
-                .where("id", "=", id)
+                .where("code", "=", code)
                 .execute();
 
-            if (result.numDeletedRows === 0) {
+            if (result.length === 0) {
                 return res.status(404).json({ error: "Sprint not found" });
             }
 

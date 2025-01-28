@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { getRandomTemplate } from "./messageService";
 import { Kysely } from "kysely";
-import { Database } from "../types/database";
-import { Template } from "../types/database";
+import { Database } from "../../../types/database";
+import { Template } from "../../../types/database";
 
 const mockDb = {
     selectFrom: vi.fn(),
