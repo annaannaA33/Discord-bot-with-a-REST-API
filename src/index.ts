@@ -8,6 +8,7 @@ import { sendMessageToDiscord } from "./utils/discord";
 import { saveMessage } from "./models/saveMessage";
 import { validateMessageRequest } from "./services/validationService";
 import { db } from "./db/db";
+import { createSprintsRouter } from "./modules/sprints/controller"
 config();
 
 const app = express();
@@ -27,8 +28,9 @@ app.use(
         db,
     })
 );
-app.use("/templates", createTemplatesRouter(db));
 
+app.use("/templates", createTemplatesRouter(db));
+app.use("/sprints", createSprintsRouter(db));
 
 const PORT = 3000;
 app.listen(PORT, () => {
