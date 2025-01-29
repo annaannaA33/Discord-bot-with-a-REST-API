@@ -28,7 +28,7 @@ app.use(
     })
 );
 
-app.use("/templates", createTemplatesRouter(db));
-app.use("/sprints", createSprintsRouter(db));
+app.use("/templates", createTemplatesRouter({db}));
+app.use("/sprints", createSprintsRouter({db}));
 
 export { app };

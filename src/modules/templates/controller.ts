@@ -13,7 +13,7 @@ export function createTemplatesRouter({
         const { text } = req.body;
 
         if (!text) {
-            return res.status(400).json({ error: "Template text is required" });
+            res.status(400).json({ error: "Template text is required" });
         }
 
         try {
@@ -50,7 +50,7 @@ export function createTemplatesRouter({
         const { text } = req.body;
 
         if (!text) {
-            return res.status(400).json({ error: "Template text is required" });
+            res.status(400).json({ error: "Template text is required" });
         }
 
         try {
@@ -82,7 +82,7 @@ export function createTemplatesRouter({
                 .executeTakeFirst();
 
             if (!deletedCount) {
-                return res.status(404).json({ error: "Template not found" });
+                res.status(404).json({ error: "Template not found" });
             }
 
             res.status(200).json({ message: "Template deleted successfully" });

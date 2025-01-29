@@ -1,33 +1,28 @@
-import { Router } from "express";
-import { Kysely } from "kysely";
 import { Database, Sprint } from "../../types/database";
+import { Router } from "express";
+
 import { z } from "zod";
+import { TemplatesRouterDependencies } from "../../types/createTemplatesRouter"
 
 
-const createSprintSchema = z.object({
-    code: z.string().min(1, "Code is required"),
-    title: z.string().min(1, "Title is required"),
-});
-
-const updateSprintSchema = z.object({
-    title: z.string().min(1, "Title is required").optional(),
-});
-
-export function createSprintsRouter(db: Kysely<Database>): Router {
+export function createSprintsRouter({db}: TemplatesRouterDependencies): Router {
     const router = Router();
-
     router.post("/", async (req, res) => {
-        const validation = createSprintSchema.safeParse(req.body);
-        if (!validation.success) {
-            return res.status(400).json({ error: validation.error.errors });
-        }
-
-        const { code, title } = validation.data;
-        //code указан как уникальеное значение, и праймари код и база данных должна выдать ошибку, если будет попцтка создать спринт с code  который уже есть. и тогда уже эту ошибку надо передать пользователю
+        const { code, title } = req.body;
         try {
             await db.insertInto("sprints").values({ code, title }).execute();
             res.status(201).json({ message: "Sprint created successfully" });
         } catch (error) {
+            if (
+                error instanceof Error &&
+                error.message.includes("UNIQUE constraint failed")
+            ) {
+                res
+                    .status(409)
+                    .json({ error: "Sprint code already exists" });
+                    return;
+            }
+
             console.error("Error creating sprint:", error);
             res.status(500).json({ error: "Failed to create sprint" });
         }
@@ -48,14 +43,7 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
 
     router.patch("/:code", async (req, res) => {
         const code = req.params.code;
-//если база данных дает ошибку, то передаем эту ошибку
-        const validation = updateSprintSchema.safeParse(req.body);
-        if (!validation.success) {
-            res.status(400).json({ error: validation.error.errors });
-            return;
-        }
-
-        const { title } = validation.data;
+        const { title } = req.body;
 
         try {
             const result = await db
@@ -65,7 +53,8 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
                 .execute();
 
             if (result.length === 0) {
-                return res.status(404).json({ error: "Sprint not found" });
+                res.status(404).json({ error: "Sprint not found" });
+                return;
             }
 
             res.status(200).json({ message: "Sprint updated successfully" });
@@ -84,7 +73,7 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
                 .execute();
 
             if (result.length === 0) {
-                return res.status(404).json({ error: "Sprint not found" });
+                res.status(404).json({ error: "Sprint not found" });
             }
 
             res.status(200).json({ message: "Sprint deleted successfully" });
@@ -95,4 +84,5 @@ export function createSprintsRouter(db: Kysely<Database>): Router {
     });
 
     return router;
+
 }
