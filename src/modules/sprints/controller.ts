@@ -2,10 +2,11 @@ import { Database, Sprint } from "../../types/database";
 import { Router } from "express";
 
 import { z } from "zod";
-import { TemplatesRouterDependencies } from "../../types/createTemplatesRouter"
+import { TemplatesRouterDependencies } from "../../types/createTemplatesRouter";
 
-
-export function createSprintsRouter({db}: TemplatesRouterDependencies): Router {
+export function createSprintsRouter({
+    db,
+}: TemplatesRouterDependencies): Router {
     const router = Router();
     router.post("/", async (req, res) => {
         const { code, title } = req.body;
@@ -17,10 +18,8 @@ export function createSprintsRouter({db}: TemplatesRouterDependencies): Router {
                 error instanceof Error &&
                 error.message.includes("UNIQUE constraint failed")
             ) {
-                res
-                    .status(409)
-                    .json({ error: "Sprint code already exists" });
-                    return;
+                res.status(409).json({ error: "Sprint code already exists" });
+                return;
             }
 
             console.error("Error creating sprint:", error);
@@ -74,15 +73,16 @@ export function createSprintsRouter({db}: TemplatesRouterDependencies): Router {
 
             if (result.length === 0) {
                 res.status(404).json({ error: "Sprint not found" });
+                return;
             }
 
             res.status(200).json({ message: "Sprint deleted successfully" });
+            return;
         } catch (error) {
             console.error("Error deleting sprint:", error);
-            res.status(500).json({ error: "Failed to delete sprint" });
+             res.status(500).json({ error: "Failed to delete sprint" });
+             return;
         }
     });
-
     return router;
-
 }

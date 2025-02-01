@@ -62,7 +62,7 @@ export function createTemplatesRouter({
                 .executeTakeFirst();
 
             if (!updatedTemplate) {
-                return res.status(404).json({ error: "Template not found" });
+                res.status(404).json({ error: "Template not found" });
             }
 
             res.status(200).json(updatedTemplate);
