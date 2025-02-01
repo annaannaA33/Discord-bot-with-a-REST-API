@@ -9,6 +9,8 @@ export const mockQueryBuilder = {
     set: vi.fn().mockReturnThis(),
     insertInto: vi.fn().mockReturnThis(),
     values: vi.fn().mockReturnThis(),
+    executeTakeFirst: vi.fn().mockResolvedValue({}),
+    returning: vi.fn().mockReturnThis(),
 };
 
 export const mockDb: Kysely<Database> = {

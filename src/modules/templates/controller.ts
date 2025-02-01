@@ -14,6 +14,7 @@ export function createTemplatesRouter({
 
         if (!text) {
             res.status(400).json({ error: "Template text is required" });
+            return;
         }
 
         try {
@@ -27,6 +28,7 @@ export function createTemplatesRouter({
         } catch (error) {
             console.error("Error creating template:", error);
             res.status(500).json({ error: "Failed to create template" });
+            
         }
     });
 
@@ -51,6 +53,7 @@ export function createTemplatesRouter({
 
         if (!text) {
             res.status(400).json({ error: "Template text is required" });
+            return;
         }
 
         try {
@@ -83,6 +86,7 @@ export function createTemplatesRouter({
 
             if (!deletedCount) {
                 res.status(404).json({ error: "Template not found" });
+                return;
             }
 
             res.status(200).json({ message: "Template deleted successfully" });
