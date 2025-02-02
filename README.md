@@ -59,6 +59,14 @@ To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Dev
    SELECT \* FROM messages;
 ```
 
+>#### database schema:
+>>CREATE TABLE IF NOT EXISTS "messages" ("id" integer primary key autoincrement, "username" varchar, "sprintCode" varchar, "message" varchar, "gifUrl" varchar, "createdAt" datetime default CURRENT_TIMESTAMP);
+
+>>CREATE TABLE IF NOT EXISTS "templates" ("id" integer primary key autoincrement, "text" varchar);
+
+>>CREATE TABLE IF NOT EXISTS "sprints" ("code" varchar unique primary key, "title" varchar);
+
+
 ### 7. Test the application:
 
 Once everything is set up, the bot will be ready to send congratulatory messages. Use a tool like Postman to send a POST request to:
@@ -89,9 +97,3 @@ to run use this:
 ```
    npm run test:coverage
 ```
-
->>sqlite> .schema
->>CREATE TABLE IF NOT EXISTS "messages" ("id" integer primary key autoincrement, >>"username" varchar, "sprintCode" varchar, "message" varchar, "gifUrl" varchar, >>"createdAt" datetime default CURRENT_TIMESTAMP);
->>CREATE TABLE IF NOT EXISTS "templates" ("id" integer primary key autoincrement, >>"text" varchar);
->>CREATE TABLE IF NOT EXISTS "sprints" ("code" varchar unique primary key, "title" >>varchar);
-
