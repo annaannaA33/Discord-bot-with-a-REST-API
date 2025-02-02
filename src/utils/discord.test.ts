@@ -3,11 +3,10 @@ import { Client, TextChannel, GatewayIntentBits } from "discord.js";
 import { config } from "dotenv";
 import { sendMessageToDiscord } from "./discord";
 
-// Load environment variables
+
 config();
 
 describe("Discord Bot Tests", () => {
-    // Mock Discord client instance
     const mockClient = {
         channels: {
             fetch: vi.fn(),

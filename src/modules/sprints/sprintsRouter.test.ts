@@ -19,7 +19,6 @@ describe("Sprints API", () => {
             { "code": "WD-6.1", title: "6 Sprint" },
         ];
 
-        // Настраиваем execute для возврата тестовых данных
         mockQueryBuilder.execute.mockResolvedValue(mockSprints);
 
         const response = await request(app).get("/sprints");
@@ -39,9 +38,8 @@ describe("Sprints API", () => {
 
     it("should create a sprint", async () => {
         const newSprint = { code: "WD-7.1", title: "7 Sprint" };
-        // Настраиваем мок для insertInto
+
         mockDb.insertInto = vi.fn().mockReturnValue(mockQueryBuilder);
-        // Настраиваем мок для execute
         mockQueryBuilder.execute.mockResolvedValueOnce([1]); // Возвращаем успешный результат
         const response = await request(app).post("/sprints").send(newSprint);
 
@@ -107,7 +105,7 @@ describe("Sprints API", () => {
     it("should delete a sprint", async () => {
         mockDb.deleteFrom = vi.fn().mockReturnValue({
             where: vi.fn().mockReturnValue({
-                execute: vi.fn().mockResolvedValue([1]), // Успешное удаление
+                execute: vi.fn().mockResolvedValue([1]),
             }),
         });
 
@@ -122,7 +120,7 @@ describe("Sprints API", () => {
     it("should return 404 if sprint to delete is not found", async () => {
         mockDb.deleteFrom = vi.fn().mockReturnValue({
             where: vi.fn().mockReturnValue({
-                execute: vi.fn().mockResolvedValue([]), // Пустой массив — запись не найдена
+                execute: vi.fn().mockResolvedValue([]),
             }),
         });
 

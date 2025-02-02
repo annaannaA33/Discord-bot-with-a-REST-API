@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { Kysely } from "kysely";
-
+import { getRandomTemplate } from "../messages/services/messageService"
 import { TemplatesRouterDependencies } from "../../types/createTemplatesRouter";
 
 export function createTemplatesRouter({
@@ -32,7 +31,6 @@ export function createTemplatesRouter({
         }
     });
 
-    // Get all templates
     router.get("/", async (req, res) => {
         try {
             const templates = await db
@@ -46,7 +44,13 @@ export function createTemplatesRouter({
         }
     });
 
-    // Update a template
+    router.get("/rundom", async (req, res) => {
+        const rundomTemplate = await getRandomTemplate(db);
+        res.status(200).json(rundomTemplate);
+
+    });
+
+
     router.patch("/:id", async (req, res) => {
         const { id } = req.params;
         const { text } = req.body;

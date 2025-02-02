@@ -1,7 +1,5 @@
 import { Database, Sprint } from "../../types/database";
 import { Router } from "express";
-
-import { z } from "zod";
 import { TemplatesRouterDependencies } from "../../types/createTemplatesRouter";
 
 export function createSprintsRouter({

@@ -1,17 +1,18 @@
-Discord Bot with REST API
+# Discord Bot with REST API
 
 This project is a Discord bot with a REST API, capable of sending congratulatory messages with GIFs and managing related data.
 
-Setup Instructions
+### Setup Instructions
 
-1. Install Dependencies
-   After cloning the repository, navigate to the project folder and install the necessary dependencies:
-   npm install
 
-2. Configure Environment Variables
-   Create a .env file from the .env.example(Copy .env.example to .env)
+###  1. Install Dependencies
+   >After cloning the repository, navigate to the project folder and install the necessary dependencies:
+   >npm install
 
-Fill in the required values:
+###  2. Configure Environment Variables
+   >Create a .env file from the .env.example(Copy .env.example to .env)
+
+>Fill in the required values:
 
 FALLBACK_GIF_URL: fallback GIF
 (Since this project is educational, I’ve included this default fallback GIF URL for simplicity and ease of use.)
@@ -31,25 +32,26 @@ instructions: https://discord.com/developers/docs/intro.
 Discord Channel ID:
 To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Developer Mode. Then right-click on the desired channel and select "Copy ID".
 
-3. Generate an invite link for your bot and invite it to your server:
+### 3. Generate an invite link for your bot and invite it to your server:
    Select your bot from the list of applications at [Discord Developer Portal](https://discord.com/developers/applications).
    Go to the OAuth2 section, then to the URL Generator.
    Under Scopes, select bot.
    Under Bot Permissions, select the permissions your bot will need (e.g., Send Messages).
    Copy the generated URL and paste it in your browser to invite the bot to your server.
-4. Run Migrations
+### 4. Run Migrations
    To create the required tables in the database, run:
    tsx src/migrations/runMigrations.ts
 
-5. To populate the database with initial data, run:
+### 5. To populate the database with initial data, run:
    tsx populateDatabase.ts
+   tx-node populateDatabase.ts
 
-6. Run the following command to check the records in the database:
+### 6. Run the following command to check the records in the database:
 
 sqlite3 ./database.sqlite
 SELECT \* FROM messages;
 
-7. Test the application:
+### 7. Test the application:
 
 Once everything is set up, the bot will be ready to send congratulatory messages. Use a tool like Postman to send a POST request to:
 POST http://localhost:3000/messages
@@ -62,8 +64,9 @@ With the following JSON data:
 A congratulatory message along with a GIF should appear in your Discord channel.
 
 
-Tests:
+### Tests:
 
 I decided to place the tests next to the files
 to run use this:
-npm run test
+>npm run test
+>npm run test:coverage
