@@ -2,7 +2,7 @@
 
 This project is a Discord bot with a REST API, capable of sending congratulatory messages with GIFs and managing related data.
 
-### Setup Instructions
+## Setup Instructions
 
 
 ###  1. Install Dependencies
@@ -89,3 +89,9 @@ to run use this:
 ```
    npm run test:coverage
 ```
+
+>>sqlite> .schema
+>>CREATE TABLE IF NOT EXISTS "messages" ("id" integer primary key autoincrement, >>"username" varchar, "sprintCode" varchar, "message" varchar, "gifUrl" varchar, >>"createdAt" datetime default CURRENT_TIMESTAMP);
+>>CREATE TABLE IF NOT EXISTS "templates" ("id" integer primary key autoincrement, >>"text" varchar);
+>>CREATE TABLE IF NOT EXISTS "sprints" ("code" varchar unique primary key, "title" >>varchar);
+
