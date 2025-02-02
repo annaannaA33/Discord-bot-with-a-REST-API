@@ -43,13 +43,18 @@ To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Dev
    tsx src/migrations/runMigrations.ts
 
 ### 5. To populate the database with initial data, run:
+
+```
    tsx populateDatabase.ts
    tx-node populateDatabase.ts
+```
+
 
 ### 6. Run the following command to check the records in the database:
 
 ```
 sqlite3 ./database.sqlite
+```
 ```
 SELECT \* FROM messages;
 ```
@@ -57,7 +62,10 @@ SELECT \* FROM messages;
 ### 7. Test the application:
 
 Once everything is set up, the bot will be ready to send congratulatory messages. Use a tool like Postman to send a POST request to:
+
+```
 POST http://localhost:3000/messages
+```
 With the following JSON data:
 
 ```
@@ -74,6 +82,7 @@ A congratulatory message along with a GIF should appear in your Discord channel.
 
 I decided to place the tests next to the files
 to run use this:
+
 ```
 >npm run test
 ```
