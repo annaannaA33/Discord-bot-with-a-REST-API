@@ -6,13 +6,13 @@ This project is a Discord bot with a REST API, capable of sending congratulatory
 
 
 ###  1. Install Dependencies
-   >After cloning the repository, navigate to the project folder and install the necessary dependencies:
-   >npm install
+   After cloning the repository, navigate to the project folder and install the necessary dependencies:
+   npm install
 
 ###  2. Configure Environment Variables
-   >Create a .env file from the .env.example(Copy .env.example to .env)
+   Create a .env file from the .env.example(Copy .env.example to .env)
 
->Fill in the required values:
+Fill in the required values:
 
 FALLBACK_GIF_URL: fallback GIF
 (Since this project is educational, I’ve included this default fallback GIF URL for simplicity and ease of use.)
@@ -48,8 +48,11 @@ To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Dev
 
 ### 6. Run the following command to check the records in the database:
 
+```
 sqlite3 ./database.sqlite
+```
 SELECT \* FROM messages;
+```
 
 ### 7. Test the application:
 
@@ -57,10 +60,13 @@ Once everything is set up, the bot will be ready to send congratulatory messages
 POST http://localhost:3000/messages
 With the following JSON data:
 
+```
 {
 "username": "Anya",
 "sprintCode": "1"
 }
+```
+
 A congratulatory message along with a GIF should appear in your Discord channel.
 
 
@@ -68,5 +74,8 @@ A congratulatory message along with a GIF should appear in your Discord channel.
 
 I decided to place the tests next to the files
 to run use this:
+```
 >npm run test
+```
 >npm run test:coverage
+```
