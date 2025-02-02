@@ -14,22 +14,22 @@ This project is a Discord bot with a REST API, capable of sending congratulatory
 
 Fill in the required values:
 
-FALLBACK_GIF_URL: fallback GIF
+#### FALLBACK_GIF_URL: fallback GIF
 (Since this project is educational, I’ve included this default fallback GIF URL for simplicity and ease of use.)
 
-Giphy API Key:
+#### Giphy API Key:
 Register and get your API key from [Giphy Developers](https://developers.giphy.com/).
 Instructions: https://developers.giphy.com/docs/.
 
-Database URL:
+#### Database URL:
 Set the path for your SQLite database, for example:
 DATABASE_URL=./database.sqlite
 
-Discord Bot Token:
+#### Discord Bot Token:
 Create a bot and get the token from [Discord Developer Portal](https://discord.com/developers/applications).
 instructions: https://discord.com/developers/docs/intro.
 
-Discord Channel ID:
+#### Discord Channel ID:
 To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Developer Mode. Then right-click on the desired channel and select "Copy ID".
 
 ### 3. Generate an invite link for your bot and invite it to your server:
@@ -78,7 +78,7 @@ With the following JSON data:
 A congratulatory message along with a GIF should appear in your Discord channel.
 
 
-### Tests:
+### 8. Tests:
 
 I decided to place the tests next to the files
 to run use this:
