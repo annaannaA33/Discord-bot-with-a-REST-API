@@ -53,10 +53,10 @@ To get the channel ID, enable "Developer Mode" in User Settings > Advanced > Dev
 ### 6. Run the following command to check the records in the database:
 
 ```
-sqlite3 ./database.sqlite
+   sqlite3 ./database.sqlite
 ```
 ```
-SELECT \* FROM messages;
+   SELECT \* FROM messages;
 ```
 
 ### 7. Test the application:
@@ -64,15 +64,15 @@ SELECT \* FROM messages;
 Once everything is set up, the bot will be ready to send congratulatory messages. Use a tool like Postman to send a POST request to:
 
 ```
-POST http://localhost:3000/messages
+   POST http://localhost:3000/messages
 ```
 With the following JSON data:
 
 ```
-{
-"username": "Anya",
-"sprintCode": "1"
-}
+   {
+   "username": "Anya",
+   "sprintCode": "1"
+   }
 ```
 
 A congratulatory message along with a GIF should appear in your Discord channel.
@@ -84,7 +84,8 @@ I decided to place the tests next to the files
 to run use this:
 
 ```
->npm run test
+   npm run test
 ```
->npm run test:coverage
+```
+   npm run test:coverage
 ```
