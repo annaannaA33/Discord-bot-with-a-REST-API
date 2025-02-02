@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { MessageRouterDependencies } from "../../types/messageRouter";
+
 export function createMessagesRouter({
     getRandomGif,
     getRandomTemplate,
@@ -15,36 +16,38 @@ export function createMessagesRouter({
 
     const router = Router();
 
-    router.post("/", async (req, res) => {
-        const { username, sprintCode } = req.body;
+  router.post("/", async (req, res) => {
+      try {
+          const { username, sprintCode } = req.body;
+          const sprintTitle = await validateMessageRequest(
+              db,
+              username,
+              sprintCode
+          );
+          const gifUrl = await getRandomGif();
+          const template = await getRandomTemplate(db);
+          const message =
+              template
+                  .replace("{username}", username)
+                  .replace(
+                      "{sprintCode}",
+                      `Sprint ${sprintCode} ${sprintTitle}`
+                  ) + `\n${gifUrl}`;
+          await sendMessageToDiscord(discordChannelId, message);
+          await saveMessage({ username, sprintCode, message, gifUrl });
+          res.status(200).json({ message: "Congratulatory message sent!" });
+      } catch (error) {
+          const errorMessage = (error as Error).message;
+          res.status(400).json({
+              error: errorMessage,
+              example: {
+                  username: "Enter user name",
+                  sprintCode: "Enter SPRINT code",
 
-        try {
-            const sprintTitle = await validateMessageRequest(
-                db,
-                username,
-                sprintCode
-            );
-            const gifUrl = await getRandomGif();
-            const template = await getRandomTemplate(db);
-            const message =
-                template
-                    .replace("{username}", username)
-                    .replace(
-                        "{sprintCode}",
-                        `Sprint ${sprintCode} ${sprintTitle}`
-                    ) + `\n${gifUrl}`;
-
-            await sendMessageToDiscord(discordChannelId, message);
-            await saveMessage({ username, sprintCode, message, gifUrl });
-
-            res.status(200).json({ message: "Congratulatory message sent!" });
-        } catch (error) {
-            console.error("Error sending congratulatory message:", error);
-            res.status(500).json({
-                error: "Failed to send congratulatory message",
-            });
-        }
-    });
+              },
+          });
+      }
+  });
 
     router.get("/", async (req, res) => {
         const { username, sprint } = req.query;
@@ -80,5 +83,3 @@ export function createMessagesRouter({
 
     return router;
 }
-
-

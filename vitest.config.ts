@@ -8,7 +8,7 @@ export default defineConfig({
             provider: "v8",
             all: true,
             include: ["src/**/*.ts"],
-            exclude: ["src/**/*.test.ts"],
+            exclude: ["src/**/*.test.ts, 'node_modules/**'"],
             reportsDirectory: "./coverage",
         },
         //setupFiles: ["./test/setup.ts"],

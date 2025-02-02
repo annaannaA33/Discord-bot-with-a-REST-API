@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>39/39</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>39/39</span>
             </div>
         
             
@@ -88,10 +88,64 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -108,17 +162,35 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Kysely } from "kysely";
-import { Database } from "../types/database";
 import { vi } from "vitest";
+import { SelectQueryBuilder } from "kysely";
+import { Database, Message, Template, Sprint } from "../types/database";
+&nbsp;
+type BaseSelectQueryBuilder = SelectQueryBuilder&lt;
+    { [key: string]: Message | Template | Sprint },
+    any,
+    {}
+&gt;;
+&nbsp;
+export const mockClient = {
+    channels: {
+        fetch: vi.fn(),
+    },
+    login: vi.fn(),
+    user: {
+        tag: "TestBot#1234",
+    },
+};
 &nbsp;
 export const mockQueryBuilder = {
     selectAll: vi.fn().mockReturnThis(),
+    select: vi.fn().mockReturnThis(),
     execute: vi.fn().mockResolvedValue([]),
     where: vi.fn().mockReturnThis(),
     set: vi.fn().mockReturnThis(),
@@ -127,17 +199,26 @@ export const mockQueryBuilder = {
     executeTakeFirst: vi.fn().mockResolvedValue({}),
     returning: vi.fn().mockReturnThis(),
 };
-&nbsp;
 export const mockDb: Kysely&lt;Database&gt; = {
     selectFrom: vi.fn().mockReturnValue(mockQueryBuilder),
     insertInto: vi.fn().mockReturnValue(mockQueryBuilder),
     updateTable: vi.fn().mockReturnValue(mockQueryBuilder),
     deleteFrom: vi.fn().mockReturnValue(mockQueryBuilder),
-    // Добавляем пустые заглушки для недостающих методов
     with: vi.fn().mockReturnThis(),
     transaction: vi.fn().mockImplementation((cb) =&gt; cb(mockDb)),
     introspection: vi.fn().mockReturnValue({ getTables: vi.fn() }),
 } as unknown as Kysely&lt;Database&gt;;
+&nbsp;
+export const validationErrorQuery = {
+    ...mockQueryBuilder,
+    execute: vi.fn().mockResolvedValue(null),
+    whereRef: vi.fn().mockReturnThis(),
+    having: vi.fn().mockReturnThis(),
+    havingRef: vi.fn().mockReturnThis(),
+    distinctOn: vi.fn().mockReturnThis(),
+} as unknown as BaseSelectQueryBuilder;
+&nbsp;
+(globalThis as any).client = mockClient;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -145,7 +226,7 @@ export const mockDb: Kysely&lt;Database&gt; = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-01T01:32:19.503Z
+                at 2025-02-02T08:58:20.971Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
